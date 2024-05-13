@@ -9,9 +9,13 @@ export default function PageLayout({ children }) {
         <Navlink href="/pages/video">Videos</Navlink>
         <Navlink href="/pages/podcast">Podcast</Navlink>
       </Nav>
-    
-      
-     <div className="container my-6">{children}</div>
+
+
+      <div className="container lyt-main">
+        <div className="cm-conatainer">
+          {children}
+        </div>
+      </div>
     </>
   );
 }
