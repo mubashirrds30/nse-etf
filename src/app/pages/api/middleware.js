@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export default function middleware(req, res) {
+export function middleware(req, res) {
     console.log(req, 'req check');
     return NextResponse.next();
 }
