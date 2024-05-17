@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `User` (
+CREATE TABLE `tblUser` (
     `userid` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NULL,
@@ -50,11 +50,12 @@ CREATE TABLE `tblVideonPodcast` (
     `title` VARCHAR(191) NULL,
     `date` DATETIME(3) NOT NULL,
     `category` VARCHAR(191) NOT NULL,
-    `vimeoid` VARCHAR(191) NOT NULL,
+    `documentid` VARCHAR(191) NOT NULL,
     `type` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `createdBy` INTEGER NOT NULL,
+    `thumb_img` VARCHAR(191) NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

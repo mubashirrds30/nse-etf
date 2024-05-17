@@ -2,21 +2,21 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@emotion/react";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Pencil } from 'lucide-react';
+// import { ThemeProvider } from "@emotion/react";
+// import {
+//   Table,
+//   TableBody,
+//   TableCaption,
+//   TableCell,
+//   TableFooter,
+//   TableHead,
+//   TableHeader,
+//   TableRow,
+// } from "@/components/ui/table"
+// import { Pencil } from 'lucide-react';
 import { Grid, GridColumn } from "@progress/kendo-react-grid";
 import { orderBy } from "@progress/kendo-data-query";
-import products from "../../../src/product.json";
+// import products from "../../../src/product.json";
 import filterTableData from "../pages/video/tableData.json";
 
 const columns = [
@@ -87,25 +87,6 @@ const initialDataState = {
   skip: 0,
   take: 10,
 };
-// const trackingDiffCell = (props) => {
-//   const numConverter = props.dataItem.TrackingDifference.split("%");
-//   const icon =
-//     Number(numConverter[0]) < 0 ? (
-//       // <span className="icon-down"></span>
-//     ): (
-//         // <span className="icon-up"></span>
-//         ""
-//       );
-//   return (
-//     <td>
-//       <span
-//         className={`${Number(numConverter[0]) < 0 ? "down" : "up"} icon-value`}
-//       >
-//         {props.dataItem[props.field]} {icon}
-//       </span>
-//     </td>
-//   );
-// };
 
 export default function Page() {
   const [sort, setSort] = React.useState(initialSort);
@@ -159,7 +140,7 @@ export default function Page() {
     // </Table>
     <div className="bs-screener-filter">
       <div className="table-wrap">
-        <div class="cta">
+        <div className="cta">
           <a href="" className="btn btn-filled"> Add New</a>
         </div>
         <Grid
