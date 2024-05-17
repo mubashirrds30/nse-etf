@@ -1,18 +1,19 @@
 import jwt from 'jsonwebtoken'
-import getConfig from 'next/config';
+// import getConfig from 'next/config';
 import CustomError from '../error/error';
-const { jwtconfig } = getConfig();
+// import nextConfig from '../../next.config.mjs/index.js';
+// const { jwtconfig } = getConfig();
 function jwtValidate(token) {
     try {
-        return jwt.verify(token, jwtconfig.TOKEN_PRIVATE);
+        return jwt.verify(token, process.env.jwtconfig.TOKEN_PRIVATE);
     } catch (error) {
         throw new CustomError(403, error?.message == 'invalid signature' ? 'Invalid Token' : error?.message,);
     }
 }
-export default function jwtCreate(data) {
-    return jwt.sign(data, jwtconfig.TOKEN_PRIVATE, { expiresIn: '1d' });
+export function jwtCreate(data) {
+    return jwt.sign(data, process.env.TOKEN_PRIVATE, { expiresIn: '1d' });
 }
-export default function jwtMiddleware(req, res, next) {
+export function jwtMiddleware(req, res, next) {
     let token;
     const authHeader = req.headers.authorization;
     if (req.url.includes('/auth')) {
