@@ -2,19 +2,28 @@ import { join } from "path";
 import returnErrorResponse from "../../../../../helper/functional-helper/error_response"
 import returnSuccessResponse from "../../../../../helper/functional-helper/sucess_response"
 import fs from 'fs';
+import { jwtMiddleware } from "../../../../../helper/jwt-helper/jwt-helper";
 
 
-export const config = { api: { bodyParser: false } }
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+    runtime: 'experimental-edge'
+}
 
 
 export async function POST(req, res) {
     try {
+        const authHeader = await req.headers;
+        let tokenstring = authHeader.get('authorization').split(' ')[1];
+        await jwtMiddleware(tokenstring);
         const formData = await req.formData();
         const file = formData.get('file');
         if (!file) {
             return returnErrorResponse(400, 'No file uploaded', 'File not Found');
         }
-        const bytes = await file.arrayBuffer();
+        const bytes = await file?.arrayBuffer();
         const buffer = Buffer.from(bytes);
         console.log(file);
         const uploadDir = join(process.cwd(), 'public/', file.name);
@@ -34,6 +43,9 @@ export async function POST(req, res) {
 
 export async function DELETE(req, res) {
     try {
+        const authHeader = await req.headers;
+        let tokenstring = authHeader.get('authorization').split(' ')[1];
+        await jwtMiddleware(tokenstring);
         const searchParams = req.nextUrl.searchParams;
         let queryOption = {};
         if (!searchParams.size > 0) {

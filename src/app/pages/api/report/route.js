@@ -2,6 +2,7 @@ import { deleteData, getData, postData, updateData } from "../../../../../helper
 import db, { tblReport } from "../../../../../helper/connection/dbconnect";
 import returnErrorResponse from "../../../../../helper/functional-helper/error_response";
 import returnSuccessResponse from "../../../../../helper/functional-helper/sucess_response";
+import { jwtMiddleware } from "../../../../../helper/jwt-helper/jwt-helper";
 
 export const GET = async (req, res, next) => {
     try {
@@ -25,6 +26,9 @@ export const GET = async (req, res, next) => {
 export async function POST(req, res, next) {
     try {
         // let report = await db.tblReports.findMany();
+        const authHeader = await req.headers;
+        let tokenstring = authHeader.get('authorization').split(' ')[1];
+        await jwtMiddleware(tokenstring);
         const res = await req.json()
         console.log(res, 'body check');
         // await postData(db.tblReport, res);
@@ -38,6 +42,9 @@ export async function POST(req, res, next) {
 
 export async function PUT(req, res) {
     try {
+        const authHeader = await req.headers;
+        let tokenstring = authHeader.get('authorization').split(' ')[1];
+        await jwtMiddleware(tokenstring);
         const res = await req.json();
         // await updateData(tblReport, res, { id: res.id });
         await tblReport.update({ where: { id: res.id }, data: res })
@@ -49,6 +56,9 @@ export async function PUT(req, res) {
 
 export async function DELETE(req, res) {
     try {
+        const authHeader = await req.headers;
+        let tokenstring = authHeader.get('authorization').split(' ')[1];
+        await jwtMiddleware(tokenstring);
         const searchParams = req.nextUrl.searchParams;
         let queryOption = {};
         if (!searchParams.size > 0) {
