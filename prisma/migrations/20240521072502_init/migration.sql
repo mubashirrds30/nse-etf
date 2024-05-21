@@ -19,6 +19,7 @@ CREATE TABLE `tblReport` (
     `year` VARCHAR(191) NULL,
     `date` DATETIME(3) NOT NULL,
     `fileurl` VARCHAR(191) NOT NULL,
+    `category` VARCHAR(191) NOT NULL,
     `fundtype` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
