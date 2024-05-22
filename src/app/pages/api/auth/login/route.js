@@ -1,17 +1,24 @@
-import { tblUser } from "../../../../../../helper/connection/dbconnect";
+import db from "../../../../../../helper/connection/dbconnect";
 import returnErrorResponse from "../../../../../../helper/functional-helper/error_response";
 import returnSuccessResponse from "../../../../../../helper/functional-helper/sucess_response";
 import { jwtCreate } from "../../../../../../helper/jwt-helper/jwt-helper";
 
+
+
 export async function POST(req, res) {
     try {
         let body = await req.json();
-        let data = await tblUser.findMany({
+        console.log(body);
+        let dataque = await db.tblUser.findMany({
             where: {
-                email: body.email
+                email: body.email,
             }
         })
-        if (!data[0]) return returnErrorResponse(404, "user not found", "Not Found");
+        let data = dataque.filter(x => x.email == body?.email);
+        console.log(data);
+        if (data.length <= 0) return returnErrorResponse(404, "user not found", "Not Found");
+        if (!body.email || !body.password) return returnErrorResponse(404, "Invalid request", "Pass email and password");
+        // if (data && data?.email !== body?.email) return returnErrorResponse(404, "user not found", "Not Found");
         console.log(data);
         console.log('enter in handler');
         delete data[0].password;
